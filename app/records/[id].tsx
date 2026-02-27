@@ -92,8 +92,12 @@ export default function RecordDetailsScreen() {
       notes: notes.trim() || undefined,
     };
 
-    await updateRecord(updatedRecord);
-    router.back();
+    try {
+      await updateRecord(updatedRecord);
+      router.back();
+    } catch {
+      Alert.alert('Save Failed', 'Unable to save changes on this device. Please try again.');
+    }
   };
 
   const onDelete = () => {
@@ -107,8 +111,12 @@ export default function RecordDetailsScreen() {
         text: 'Delete',
         style: 'destructive',
         onPress: async () => {
-          await deleteRecord(record.id);
-          router.back();
+          try {
+            await deleteRecord(record.id);
+            router.back();
+          } catch {
+            Alert.alert('Delete Failed', 'Unable to delete this record right now.');
+          }
         },
       },
     ]);

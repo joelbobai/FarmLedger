@@ -91,8 +91,12 @@ export default function AddRecordScreen() {
       notes: notes.trim() || undefined,
     };
 
-    await addRecord(newRecord);
-    router.back();
+    try {
+      await addRecord(newRecord);
+      router.back();
+    } catch {
+      Alert.alert('Save Failed', 'Unable to save record on this device. Please try again.');
+    }
   };
 
   return (
