@@ -15,6 +15,11 @@ const FARM_FEATURES = [
   'Simple, low-distraction interface built for daily farm use.',
   'No login and no ads for privacy-focused operation.',
   'Lightweight app footprint for budget-friendly devices.',
+  'Live search for quickly finding records by type, date, or notes.',
+  'Tap filters for flock type and record category.',
+  'One-tap sorting (newest, oldest, and highest impact).',
+  'Pull-to-refresh dashboard interaction for instant reload.',
+  'Quick date shortcuts (Today/Yesterday) while adding records.',
 ];
 
 export default function SettingsScreen() {
