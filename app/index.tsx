@@ -218,7 +218,7 @@ export default function DashboardScreen() {
             <View style={styles.summaryGrid}>
               <SummaryCard title="Eggs Collected" value={summary.totalEggs.toString()} />
               <SummaryCard title="Feed Used" value={summary.totalFeed.toString()} />
-              <SummaryCard title="Expenses" value={`$${summary.totalExpenses.toFixed(2)}`} />
+              <SummaryCard title="Expenses" value={`₦${summary.totalExpenses.toFixed(2)}`} />
               <SummaryCard title="Mortality" value={summary.mortalityCount.toString()} />
               <SummaryCard title="Visible Records" value={summary.totalRecords.toString()} />
             </View>

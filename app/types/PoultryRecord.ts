@@ -4,6 +4,7 @@ export type PoultryRecord = {
   recordType: 'feeding' | 'medication' | 'mortality' | 'egg_collection' | 'expense';
   date: string;
   quantity?: number;
+  quantityUnit?: 'kg' | 'bags';
   feedType?: string;
   medicationName?: string;
   cost?: number;

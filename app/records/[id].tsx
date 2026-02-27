@@ -20,6 +20,7 @@ export default function RecordDetailsScreen() {
   const [record, setRecord] = useState<PoultryRecord | null>(null);
   const [date, setDate] = useState('');
   const [quantity, setQuantity] = useState('');
+  const [quantityUnit, setQuantityUnit] = useState<'kg' | 'bags'>('kg');
   const [feedType, setFeedType] = useState('');
   const [medicationName, setMedicationName] = useState('');
   const [cost, setCost] = useState('');
@@ -33,6 +34,7 @@ export default function RecordDetailsScreen() {
       if (found) {
         setDate(found.date);
         setQuantity(found.quantity !== undefined ? String(found.quantity) : '');
+        setQuantityUnit(found.quantityUnit ?? 'kg');
         setFeedType(found.feedType ?? '');
         setMedicationName(found.medicationName ?? '');
         setCost(found.cost !== undefined ? String(found.cost) : '');
@@ -86,6 +88,7 @@ export default function RecordDetailsScreen() {
       ...record,
       date: date.trim(),
       quantity: quantity.trim() ? Number(quantity) : undefined,
+      quantityUnit: record.recordType === 'feeding' && quantity.trim() ? quantityUnit : undefined,
       feedType: feedType.trim() || undefined,
       medicationName: medicationName.trim() || undefined,
       cost: cost.trim() ? Number(cost) : undefined,
@@ -155,6 +158,24 @@ export default function RecordDetailsScreen() {
               onChangeText={setQuantity}
               keyboardType="decimal-pad"
             />
+            {record.recordType === 'feeding' && (
+              <>
+                <Text style={styles.label}>Quantity Unit</Text>
+                <View style={styles.segmentRow}>
+                  {(['kg', 'bags'] as const).map((unit) => (
+                    <TouchableOpacity
+                      key={unit}
+                      style={[styles.segmentButton, quantityUnit === unit && styles.segmentButtonActive]}
+                      onPress={() => setQuantityUnit(unit)}
+                    >
+                      <Text style={[styles.segmentText, quantityUnit === unit && styles.segmentTextActive]}>
+                        {unit === 'kg' ? 'Kilograms (kg)' : 'Number of Bags'}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </>
+            )}
           </>
         )}
 
@@ -174,7 +195,7 @@ export default function RecordDetailsScreen() {
 
         {record.recordType === 'expense' && (
           <>
-            <Text style={styles.label}>Cost</Text>
+            <Text style={styles.label}>Cost (₦)</Text>
             <TextInput
               style={styles.input}
               value={cost}
@@ -256,6 +277,33 @@ const styles = StyleSheet.create({
     color: '#D32F2F',
     fontWeight: '700',
     fontSize: 16,
+  },
+
+  segmentRow: {
+    flexDirection: 'row',
+    gap: 8,
+    marginBottom: 2,
+  },
+  segmentButton: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    borderColor: '#C8E6C9',
+    borderWidth: 1,
+    borderRadius: 16,
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  segmentButtonActive: {
+    backgroundColor: '#1B5E20',
+    borderColor: '#1B5E20',
+  },
+  segmentText: {
+    color: '#1B5E20',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  segmentTextActive: {
+    color: '#FFFFFF',
   },
   notFoundWrap: {
     flex: 1,
