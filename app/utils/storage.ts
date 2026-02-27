@@ -49,38 +49,26 @@ export const getRecords = async (): Promise<PoultryRecord[]> => {
 };
 
 export const addRecord = async (record: PoultryRecord): Promise<PoultryRecord[]> => {
-  try {
-    const records = await getRecords();
-    const updated = [record, ...records];
-    await saveRecords(updated);
-    return updated;
-  } catch {
-    return [];
-  }
+  const records = await getRecords();
+  const updated = [record, ...records];
+  await saveRecords(updated);
+  return updated;
 };
 
 export const updateRecord = async (updatedRecord: PoultryRecord): Promise<PoultryRecord[]> => {
-  try {
-    const records = await getRecords();
-    const updated = records.map((record) =>
-      record.id === updatedRecord.id ? updatedRecord : record,
-    );
-    await saveRecords(updated);
-    return updated;
-  } catch {
-    return [];
-  }
+  const records = await getRecords();
+  const updated = records.map((record) =>
+    record.id === updatedRecord.id ? updatedRecord : record,
+  );
+  await saveRecords(updated);
+  return updated;
 };
 
 export const deleteRecord = async (id: string): Promise<PoultryRecord[]> => {
-  try {
-    const records = await getRecords();
-    const updated = records.filter((record) => record.id !== id);
-    await saveRecords(updated);
-    return updated;
-  } catch {
-    return [];
-  }
+  const records = await getRecords();
+  const updated = records.filter((record) => record.id !== id);
+  await saveRecords(updated);
+  return updated;
 };
 
 export const clearAllRecords = async (): Promise<void> => {

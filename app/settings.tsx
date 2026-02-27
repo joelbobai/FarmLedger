@@ -15,8 +15,12 @@ export default function SettingsScreen() {
         text: 'Clear All',
         style: 'destructive',
         onPress: async () => {
-          await clearAllRecords();
-          router.back();
+          try {
+            await clearAllRecords();
+            router.back();
+          } catch {
+            Alert.alert('Clear Failed', 'Unable to clear records right now.');
+          }
         },
       },
     ]);
