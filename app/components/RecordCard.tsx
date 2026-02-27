@@ -13,6 +13,20 @@ const formatTitle = (recordType: PoultryRecord['recordType']): string =>
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(' ');
 
+const formatCost = (cost: number) => `₦${cost.toFixed(2)}`;
+
+const formatQuantity = (record: PoultryRecord) => {
+  if (record.quantity === undefined) {
+    return '';
+  }
+
+  if (record.recordType === 'feeding' && record.quantityUnit) {
+    return `Qty: ${record.quantity} ${record.quantityUnit === 'kg' ? 'kg' : 'bags'}  `;
+  }
+
+  return `Qty: ${record.quantity}  `;
+};
+
 export default function RecordCard({ record, onPress }: RecordCardProps) {
   return (
     <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.85}>
@@ -22,8 +36,8 @@ export default function RecordCard({ record, onPress }: RecordCardProps) {
       </View>
       <Text style={styles.productionType}>{record.productionType.toUpperCase()}</Text>
       <Text style={styles.meta} numberOfLines={2}>
-        {record.quantity !== undefined ? `Qty: ${record.quantity}  ` : ''}
-        {record.cost !== undefined ? `Cost: ${record.cost}` : ''}
+        {formatQuantity(record)}
+        {record.cost !== undefined ? `Cost: ${formatCost(record.cost)}` : ''}
         {record.feedType ? `Feed: ${record.feedType}` : ''}
         {record.medicationName ? `Medication: ${record.medicationName}` : ''}
       </Text>

@@ -36,6 +36,7 @@ export default function AddRecordScreen() {
   const [recordType, setRecordType] = useState<PoultryRecord['recordType']>('feeding');
   const [date, setDate] = useState('');
   const [quantity, setQuantity] = useState('');
+  const [quantityUnit, setQuantityUnit] = useState<'kg' | 'bags'>('kg');
   const [feedType, setFeedType] = useState('');
   const [medicationName, setMedicationName] = useState('');
   const [cost, setCost] = useState('');
@@ -91,6 +92,7 @@ export default function AddRecordScreen() {
       recordType,
       date: date.trim(),
       quantity: quantity.trim() ? Number(quantity) : undefined,
+      quantityUnit: recordType === 'feeding' && quantity.trim() ? quantityUnit : undefined,
       feedType: feedType.trim() || undefined,
       medicationName: medicationName.trim() || undefined,
       cost: cost.trim() ? Number(cost) : undefined,
@@ -165,6 +167,21 @@ export default function AddRecordScreen() {
               placeholder="40"
               placeholderTextColor="#9AA0A6"
             />
+
+            <Text style={styles.label}>Quantity Unit</Text>
+            <View style={styles.segmentRow}>
+              {(['kg', 'bags'] as const).map((unit) => (
+                <TouchableOpacity
+                  key={unit}
+                  style={[styles.segmentButton, quantityUnit === unit && styles.segmentButtonActive]}
+                  onPress={() => setQuantityUnit(unit)}
+                >
+                  <Text style={[styles.segmentText, quantityUnit === unit && styles.segmentTextActive]}>
+                    {unit === 'kg' ? 'Kilograms (kg)' : 'Number of Bags'}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
           </>
         ) : null}
 
@@ -207,13 +224,13 @@ export default function AddRecordScreen() {
 
         {recordType === 'expense' ? (
           <>
-            <Text style={styles.label}>Cost</Text>
+            <Text style={styles.label}>Cost (₦)</Text>
             <TextInput
               style={styles.input}
               value={cost}
               onChangeText={setCost}
               keyboardType="decimal-pad"
-              placeholder="100.50"
+              placeholder="1000"
               placeholderTextColor="#9AA0A6"
             />
 
