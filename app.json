@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "FarmLedger",
-    "slug": "FarmLedger",
+    "slug": "farmledger",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -19,7 +19,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.farmLedger.farmLedger"
     },
     "web": {
       "output": "static",
@@ -43,6 +44,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "d47d8710-2ada-4221-a8c8-b4bbafc26450"
+      }
+    },
+    "owner": "felixbraveyale"
   }
 }
