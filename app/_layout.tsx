@@ -1,24 +1,22 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+    <>
+      <Stack
+        screenOptions={{
+          headerStyle: { backgroundColor: '#1B5E20' },
+          headerTintColor: '#FFFFFF',
+          contentStyle: { backgroundColor: '#F8F9FA' },
+        }}
+      >
+        <Stack.Screen name="index" options={{ title: 'FarmLedger – Poultry Edition' }} />
+        <Stack.Screen name="add-record" options={{ title: 'Add Record' }} />
+        <Stack.Screen name="records/[id]" options={{ title: 'Record Details' }} />
+        <Stack.Screen name="settings" options={{ title: 'Settings' }} />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+      <StatusBar style="light" />
+    </>
   );
 }
