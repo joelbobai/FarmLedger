@@ -11,7 +11,7 @@ export default function RootLayout() {
           contentStyle: { backgroundColor: '#F8F9FA' },
         }}
       >
-        <Stack.Screen name="index" options={{ title: 'FarmLedger – Poultry Edition' }} />
+        <Stack.Screen name="index" options={{ title: 'FarmLedger' }} />
         <Stack.Screen name="add-record" options={{ title: 'Add Record' }} />
         <Stack.Screen name="records/[id]" options={{ title: 'Record Details' }} />
         <Stack.Screen name="settings" options={{ title: 'Settings' }} />

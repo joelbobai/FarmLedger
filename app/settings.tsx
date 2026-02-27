@@ -4,6 +4,19 @@ import { Alert, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'r
 
 import { clearAllRecords } from '@/app/utils/storage';
 
+const FARM_FEATURES = [
+  'Offline-first data storage for uninterrupted use.',
+  'Quick add flow for feeding, eggs, expenses, and mortality.',
+  'Live dashboard totals for eggs, feed, costs, and records.',
+  'Recent records timeline for fast review.',
+  'One-tap record reset from settings.',
+  'Record detail view for better traceability.',
+  'Designed for both layers and broilers operations.',
+  'Simple, low-distraction interface built for daily farm use.',
+  'No login and no ads for privacy-focused operation.',
+  'Lightweight app footprint for budget-friendly devices.',
+];
+
 export default function SettingsScreen() {
   const router = useRouter();
   const appVersion = Constants.expoConfig?.version ?? '1.0.0';
@@ -30,7 +43,7 @@ export default function SettingsScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.card}>
-          <Text style={styles.title}>FarmLedger – Poultry Edition</Text>
+          <Text style={styles.title}>FarmLedger</Text>
           <Text style={styles.tagline}>Smart Poultry Records Offline</Text>
           <Text style={styles.info}>Version {appVersion}</Text>
         </View>
@@ -39,6 +52,15 @@ export default function SettingsScreen() {
           <Text style={styles.sectionTitle}>About</Text>
           <Text style={styles.info}>Built for poultry farmers managing layers and broilers fully offline.</Text>
           <Text style={styles.info}>No internet, no account, no ads, and no permissions required.</Text>
+        </View>
+
+        <View style={styles.card}>
+          <Text style={styles.sectionTitle}>Features</Text>
+          {FARM_FEATURES.map((feature) => (
+            <Text key={feature} style={styles.featureItem}>
+              • {feature}
+            </Text>
+          ))}
         </View>
 
         <TouchableOpacity style={styles.clearButton} onPress={onClear}>
@@ -86,6 +108,12 @@ const styles = StyleSheet.create({
   },
   info: {
     marginTop: 8,
+    color: '#37474F',
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  featureItem: {
+    marginTop: 6,
     color: '#37474F',
     fontSize: 14,
     lineHeight: 20,
