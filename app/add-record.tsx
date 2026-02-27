@@ -42,6 +42,12 @@ export default function AddRecordScreen() {
   const [notes, setNotes] = useState('');
   const [showTypeModal, setShowTypeModal] = useState(false);
 
+  const setQuickDate = (offsetDays: number) => {
+    const dateValue = new Date();
+    dateValue.setDate(dateValue.getDate() + offsetDays);
+    setDate(dateValue.toISOString().slice(0, 10));
+  };
+
   const requiredError = useMemo(() => {
     if (!date.trim()) {
       return 'Date is required.';
@@ -130,6 +136,14 @@ export default function AddRecordScreen() {
           placeholder="2026-01-31"
           placeholderTextColor="#9AA0A6"
         />
+        <View style={styles.quickDateRow}>
+          <TouchableOpacity style={styles.quickDateButton} onPress={() => setQuickDate(0)}>
+            <Text style={styles.quickDateButtonText}>Today</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.quickDateButton} onPress={() => setQuickDate(-1)}>
+            <Text style={styles.quickDateButtonText}>Yesterday</Text>
+          </TouchableOpacity>
+        </View>
 
         {recordType === 'feeding' ? (
           <>
@@ -289,6 +303,24 @@ const styles = StyleSheet.create({
   selectInputText: {
     color: '#263238',
     fontSize: 16,
+  },
+  quickDateRow: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 10,
+  },
+  quickDateButton: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#C8E6C9',
+    borderRadius: 12,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+  },
+  quickDateButtonText: {
+    color: '#1B5E20',
+    fontWeight: '600',
+    fontSize: 12,
   },
   saveButton: {
     marginTop: 24,
